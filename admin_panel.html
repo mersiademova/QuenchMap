@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>QuenchMap Admin Panel</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="container-fluid position-relative p-0 bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="#" class="navbar-brand p-0">
+                <h1 class="text-primary"><i class="fas fa-hand-holding-water me-3"></i>QuenchMap Admin</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="#" class="nav-item nav-link active">Dashboard</a>
+                    <a href="#" class="nav-item nav-link">Управување со чешми</a>
+                    <a href="#" class="nav-item nav-link">Соопштенија</a>
+                    <a href="#" class="nav-item nav-link">Пријавени проблеми</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Admin Panel Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5" style="max-width:800px;">
+                <h4 class="text-uppercase text-primary wow fadeInUp">Админ Панел</h4>
+                <h1 class="display-6 mb-3 wow fadeInUp">Управување со јавни чешми</h1>
+                <p class="mb-0 wow fadeInUp">Додавање, менување и бришење на податоци за чешмите, типови на проблеми и локации.</p>
+    <!-- ========================================= -->
+    <!-- 1. ФОРМА: ДОДАЈ / ИЗМЕНИ ЧЕШМА            -->
+    <!-- ========================================= -->
+    <h4 class="section-title">Управување со Чешми</h4>
+
+    <div class="card p-4 mb-4">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Дејство:</label>
+            <div>
+                <input type="radio" name="actionFountain" id="addFountain" checked>
+                <label for="addFountain" class="me-3">Додади чешма</label>
+
+                <input type="radio" name="actionFountain" id="editFountain">
+                <label for="editFountain">Измени чешма</label>
+            </div>
+        </div>
+
+        <form id="fountainForm" enctype="multipart/form-data">
+
+            <!-- Select existing fountain (only for edit mode) -->
+            <div id="existingFountainGroup" class="mb-3 d-none">
+                <label class="form-label">Избери чешма за уредување</label>
+                <select class="form-select">
+                    <option>Белска чешма</option>
+                    <option>Фонтана на плоштад - Кочани</option>
+                    <option>Фонтана пред мост кај Општата болница</option>
+                    <option>Минова чешма</option>
+                    <option>Помпа Бавчалак</option>
+                    <option>Фонтана пред полициска станица</option>
+                    <option>Стришанска чешма</option>
+                    <option>Усова чешма</option>
+                </select>
+            </div>
+
+            <!-- Fountain name (Add mode only) -->
+            <div id="newFountainGroup" class="mb-3">
+                <label class="form-label">Име на нова чешма</label>
+                <input type="text" class="form-control" placeholder="Внеси ново име">
+            </div>
+
+            <!-- Address / Coordinates -->
+            <div class="mb-3">
+                <label class="form-label">Адреса / Координати</label>
+                <input type="text" class="form-control" placeholder="Пример: 41.7450, 22.1950">
+            </div>
+
+            <!-- Notes -->
+            <div class="mb-3">
+                <label class="form-label">Опис / Белешка</label>
+                <textarea class="form-control" rows="2"></textarea>
+            </div>
+
+            <!-- Chemical -->
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Хемиски неисправна</label>
+                    <input type="number" class="form-control" min="0" value="0">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Бактериолошки неисправна</label>
+                    <input type="number" class="form-control" min="0" value="0">
+                </div>
+            </div>
+
+            <!-- Samples -->
+            <div class="mb-3">
+                <label class="form-label">Испитани примероци</label>
+                <input type="number" class="form-control" min="0" value="0">
+            </div>
+
+            <!-- City -->
+            <div class="mb-3">
+                <label class="form-label">Град</label>
+                <select class="form-select">
+                    <option value="1">Штип</option>
+                    <option value="2">Кочани</option>
+                    <option value="3">Скопје</option>
+                </select>
+            </div>
+
+            <!-- Image -->
+            <div class="mb-3">
+                <label class="form-label">Слика</label>
+                <input type="file" class="form-control" accept="image/*">
+            </div>
+
+            <button class="btn btn-primary w-100">Зачувај</button>
+        </form>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- 2. ФОРМА: КРЕИРАЈ / АЖУРИРАЈ СОOПШТЕНИЕ   -->
+    <!-- ========================================= -->
+    <h4 class="section-title">Соопштенија</h4>
+
+    <div class="card p-4 mb-4">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Дејство:</label>
+            <div>
+                <input type="radio" name="msgAction" id="createMsg" checked>
+                <label for="createMsg" class="me-3">Креирај соопштение</label>
+
+                <input type="radio" name="msgAction" id="updateMsg">
+                <label for="updateMsg">Ажурирај соопштение</label>
+            </div>
+        </div>
+
+        <form id="messageForm">
+
+            <!-- Select message (edit only) -->
+            <div id="existingMessageGroup" class="mb-3 d-none">
+                <label class="form-label">Избери соопштение за уредување</label>
+                <select class="form-select">
+                    <option>Недостиг на вода – Плоштад Кочани</option>
+                    <option>Минова чешма – во поправка</option>
+                    
+                </select>
+            </div>
+
+            <!-- Message Title -->
+            <div class="mb-3">
+                <label class="form-label">Наслов</label>
+                <input class="form-control">
+            </div>
+
+            <!-- Message Description -->
+            <div class="mb-3">
+                <label class="form-label">Опис</label>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+
+            <button class="btn btn-primary w-100">Зачувај</button>
+        </form>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- 3. ЛИСТА ПРИЈАВЕНИ ПРОБЛЕМИ                -->
+    <!-- ========================================= -->
+    <h4 class="section-title">Пријавени проблеми</h4>
+
+    <div class="card p-4">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Опис</th>
+                    <th>Датум</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Стришанска чешма не работи</td>
+                    <td>2025-12-01</td>
+                    <td><span class="badge bg-danger">Нов</span></td>
+                </tr>
+                <tr>
+                    <td>Нисок притисок во Белска чешма</td>
+                    <td>2025-12-02</td>
+                    <td><span class="badge bg-warning text-dark">Во тек</span></td>
+                </tr>
+                <tr>
+                    <td>Поправена помпа Бавчалак</td>
+                    <td>2025-11-29</td>
+                    <td><span class="badge bg-success">Санирано</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- JavaScript for section visibility -->
+<script>
+    const addFountain = document.getElementById('addFountain');
+    const editFountain = document.getElementById('editFountain');
+
+    const existingFountainGroup = document.getElementById('existingFountainGroup');
+    const newFountainGroup = document.getElementById('newFountainGroup');
+
+    addFountain.addEventListener('change', () => {
+        existingFountainGroup.classList.add('d-none');
+        newFountainGroup.classList.remove('d-none');
+    });
+
+    editFountain.addEventListener('change', () => {
+        existingFountainGroup.classList.remove('d-none');
+        newFountainGroup.classList.add('d-none');
+    });
+
+    // Messages
+    const createMsg = document.getElementById('createMsg');
+    const updateMsg = document.getElementById('updateMsg');
+    const existingMessageGroup = document.getElementById('existingMessageGroup');
+
+    createMsg.addEventListener('change', () => {
+        existingMessageGroup.classList.add('d-none');
+    });
+
+    updateMsg.addEventListener('change', () => {
+        existingMessageGroup.classList.remove('d-none');
+    });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
